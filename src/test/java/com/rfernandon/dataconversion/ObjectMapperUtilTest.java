@@ -1,6 +1,5 @@
 package com.rfernandon.dataconversion;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rfernandon.dataconversion.model.UserPhoneDestination;
 import com.rfernandon.dataconversion.model.UserPhoneSource;
 import org.junit.jupiter.api.DisplayName;
@@ -51,10 +50,10 @@ class ObjectMapperUtilTest {
 
     @Test
     @DisplayName("Should convert source object to JsonNode")
-    public void shouldConvertSourceObjectToJsonNode() throws JsonProcessingException {
+    public void shouldConvertSourceObjectToJsonNode() {
 
         var json = "{\"userId\":\"123\",\"areaCode\":55,\"regionCode\":11,\"number\":996571234}";
-        var userPhoneJsonNode= convertJsonNode(json);
+        var userPhoneJsonNode= convertJsonToJsonNode(json);
 
         assertAll(
                 () -> assertEquals("123", userPhoneJsonNode.findValue("userId").asText()),
@@ -66,9 +65,9 @@ class ObjectMapperUtilTest {
 
     @Test
     @DisplayName("Should convert source object to json string")
-    public void shouldConvertSourceObjectToJsonString() throws JsonProcessingException {
+    public void shouldConvertSourceObjectToJsonString() {
 
-        var userPhoneSource= objectToJson(getUserPhoneSource());
+        var userPhoneSource= convertObjectToJson(getUserPhoneSource());
         assertEquals("{\"userId\":\"123\",\"areaCode\":55,\"regionCode\":11,\"number\":996571234}", userPhoneSource);
     }
 

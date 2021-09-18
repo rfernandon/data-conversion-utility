@@ -1,6 +1,5 @@
 package com.rfernandon.dataconversion;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,21 +30,21 @@ public class ObjectMapperUtil {
         return mapper.convertValue(value, collectionType);
     }
 
-    public static String objectToJson(Object object) {
+    public static String convertObjectToJson(Object object) {
         try {
             var mapper = getObjectMapper();
             return mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Error json processing");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error json processing");
         }
     }
 
-    public static JsonNode convertJsonNode(String json) {
+    public static JsonNode convertJsonToJsonNode(String json) {
         try {
             var mapper = getObjectMapper();
             return mapper.readTree(json);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Error json processing");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error json processing");
         }
     }
 
