@@ -31,14 +31,22 @@ public class ObjectMapperUtil {
         return mapper.convertValue(value, collectionType);
     }
 
-    public static String objectToJson(Object object) throws JsonProcessingException {
-        var mapper = getObjectMapper();
-        return mapper.writeValueAsString(object);
+    public static String objectToJson(Object object) {
+        try {
+            var mapper = getObjectMapper();
+            return mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error json processing");
+        }
     }
 
-    public static JsonNode convertJsonNode(String json) throws JsonProcessingException {
-        var mapper = getObjectMapper();
-        return mapper.readTree(json);
+    public static JsonNode convertJsonNode(String json) {
+        try {
+            var mapper = getObjectMapper();
+            return mapper.readTree(json);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error json processing");
+        }
     }
 
     private static ObjectMapper getObjectMapper() {
