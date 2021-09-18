@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -25,12 +24,11 @@ public class ObjectMapperUtil {
 
     public static <T> List<T> convertValues(Object value, Class<T> templateClass) {
 
-        if (isNull(value)) return null;
+        if (isNull(value)) return List.of();
 
         var mapper = getObjectMapper();
-        CollectionType collectionType = TypeFactory.defaultInstance().constructCollectionType(List.class, templateClass);
-        List<T> converted = (List)mapper.convertValue(value, collectionType);
-        return converted;
+        var collectionType = TypeFactory.defaultInstance().constructCollectionType(List.class, templateClass);
+        return mapper.convertValue(value, collectionType);
     }
 
     public static String objectToJson(Object object) throws JsonProcessingException {

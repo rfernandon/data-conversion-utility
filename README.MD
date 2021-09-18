@@ -2,7 +2,7 @@
 [![Sonarcloud Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.rfernandon:data-conversion-utility&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.rfernandon:data-conversion-utility) 
 [![Sonarcloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.rfernandon:data-conversion-utility&metric=coverage)](https://sonarcloud.io/component_measures?id=com.rfernandon:data-conversion-utility)
 
-# exception-handler
+# data-conversion-utility
 Componente desenvolvido para disponibilizar um conversor de dados.
 
 Para adicionar a lib em seu projeto, inclua o seguinte repositório em seu pom.xml:
