@@ -64,6 +64,15 @@ class ObjectMapperUtilTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalArgumentException when value is null - convertJsonToJsonNode")
+    public void shouldThrowIllegalArgumentExceptionWhenValueIsNullOnMethodConvertJsonToJsonNode() {
+
+        var exception = assertThrows(IllegalArgumentException.class,
+                () -> convertJsonToJsonNode(null));
+        assertEquals("Error json processing", exception.getMessage());
+    }
+
+    @Test
     @DisplayName("Should convert source object to json string")
     public void shouldConvertSourceObjectToJsonString() {
 

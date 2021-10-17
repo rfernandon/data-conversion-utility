@@ -1,14 +1,15 @@
 package com.rfernandon.dataconversion;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.List;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.*;
+import static com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS;
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
+import static com.fasterxml.jackson.databind.type.TypeFactory.defaultInstance;
 import static java.util.Objects.isNull;
 
 public class ObjectMapperUtil {
@@ -26,7 +27,7 @@ public class ObjectMapperUtil {
         if (isNull(value)) return List.of();
 
         var mapper = getObjectMapper();
-        var collectionType = TypeFactory.defaultInstance().constructCollectionType(List.class, templateClass);
+        var collectionType = defaultInstance().constructCollectionType(List.class, templateClass);
         return mapper.convertValue(value, collectionType);
     }
 
@@ -50,11 +51,11 @@ public class ObjectMapperUtil {
 
     private static ObjectMapper getObjectMapper() {
         var mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-        mapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        mapper.configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        mapper.configure(ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(FAIL_ON_EMPTY_BEANS, false);
+        mapper.configure(WRITE_DATES_AS_TIMESTAMPS, false);
         mapper.registerModule(new JavaTimeModule());
         return mapper;
     }
